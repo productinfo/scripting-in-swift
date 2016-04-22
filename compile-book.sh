@@ -1,8 +1,12 @@
 #!/bin/sh
 
-text=$(cat "./chapters/0 - Introduction.txt" "./chapters/1 - The Beginning.txt")
+text=""
 
-echo "Text file contents:\n $text"
+for file in chapters/*; do
+file_contents=$(cat "$file")
+chapter_title=$(basename "$file")
+text="$text$chapter_title\n\n$file_contents\n\n"
+done
 
 output_file=output/output.html
 
