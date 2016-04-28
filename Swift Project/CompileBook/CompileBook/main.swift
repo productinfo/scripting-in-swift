@@ -18,7 +18,7 @@ func createHTMLPageFromMarkdownFiles()
     let markdownFileURLs = FileManagerWrapper.discoverContentsInDirectoryWithURL(url)
     let markdownContent = FileManagerWrapper.concatenateContentsOfFilesWithURLs(markdownFileURLs)
     
-    MarkdownConverter.createHTMLPageFromMarkdownContent(markdownContent)
+    MarkdownConverter.createHTMLStringFromMarkdownContent(markdownContent)
 }
 
 createHTMLPageFromMarkdownFiles()

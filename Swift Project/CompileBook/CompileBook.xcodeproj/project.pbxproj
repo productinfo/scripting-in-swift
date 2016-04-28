@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		271C60031CD256510032299A /* FileManagerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C60021CD256510032299A /* FileManagerWrapper.swift */; };
 		271C60051CD256A10032299A /* MarkdownConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C60041CD256A10032299A /* MarkdownConverter.swift */; };
+		271C603B1CD269E90032299A /* MarkdownConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C60041CD256A10032299A /* MarkdownConverter.swift */; };
+		271C603C1CD269EB0032299A /* FileManagerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271C60021CD256510032299A /* FileManagerWrapper.swift */; };
 		2752A4671CD20B4A00A1C9E1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752A4661CD20B4A00A1C9E1 /* main.swift */; };
 /* End PBXBuildFile section */
 
