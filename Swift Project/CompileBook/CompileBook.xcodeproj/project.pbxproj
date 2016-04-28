@@ -115,6 +115,21 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2752A46D1CD20C1B00A1C9E1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Copy the executable to the same location as the shell script\ncp -a \"${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}\" \"${SRCROOT}/../..\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2752A45F1CD20B4A00A1C9E1 /* Sources */ = {
