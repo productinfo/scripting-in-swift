@@ -75,7 +75,7 @@ func generateMarkdownForContent(content: String)
     
     try! NSFileManager.defaultManager().removeItemAtPath(tempFile)
     
-    let outputPath = "output/swift-output.html"
+    let outputPath = "output/swift.html"
     NSFileManager.defaultManager().createFileAtPath(outputPath,
                                                     contents: outputPipe.fileHandleForReading.readDataToEndOfFile(),
                                                     attributes: nil)

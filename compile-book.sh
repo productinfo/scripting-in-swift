@@ -7,7 +7,7 @@ extract_chapter_title()
 	echo "#${chapter_filename%.*}"
 }
 
-output_file=output/output.html
+output_file=output/shellscript.html
 
 # Iterate through all files to compile them into a single file
 for file in chapters/*; do
