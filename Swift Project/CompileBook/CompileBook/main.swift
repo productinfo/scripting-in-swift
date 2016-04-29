@@ -11,7 +11,6 @@ import Foundation
 func createHTMLContentFromMarkdownFiles() -> String
 {
     let markdownFilesDirectory = "./chapters"
-    
     let url = NSURL(fileURLWithPath: markdownFilesDirectory, isDirectory: true)
     
     guard let markdownFileURLs = FileManagerWrapper.discoverContentsInDirectoryWithURL(url) else
@@ -35,3 +34,5 @@ let markdownContent = createHTMLContentFromMarkdownFiles()
 let htmlContent = MarkdownConverter.createHTMLStringFromMarkdownContent_swift(markdownContent)
 
 FileManagerWrapper.createFileAtPath("./output", withFileName: "swift.html", contents: htmlContent)
+
+print("Markdown conversion complete. Output located at output/swift.html")
