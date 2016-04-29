@@ -16,7 +16,8 @@ func createHTMLContentFromMarkdownFiles() -> String
     let url = NSURL(fileURLWithPath: "\(currentDirectory)/\(markdownFilesDirectoryName)", isDirectory: true)
     
     let markdownFileURLs = FileManagerWrapper.discoverContentsInDirectoryWithURL(url)
-    let markdownContent = FileManagerWrapper.concatenateContentsOfFilesWithURLs(markdownFileURLs) {
+    let markdownContent = FileManagerWrapper.concatenateContentsOfFilesWithURLs(markdownFileURLs)
+    {
         fileURL, contents in
         let path = fileURL.lastPathComponent!
 
@@ -28,7 +29,8 @@ func createHTMLContentFromMarkdownFiles() -> String
 }
 
 let markdownContent = createHTMLContentFromMarkdownFiles()
-guard let htmlContent = MarkdownConverter.createHTMLStringFromMarkdownContent(markdownContent) else {
+guard let htmlContent = MarkdownConverter.createHTMLStringFromMarkdownContent(markdownContent) else
+{
     print("Error generating html string from markdown content")
     exit(1)
 }

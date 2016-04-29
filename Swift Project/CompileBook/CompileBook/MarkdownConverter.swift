@@ -15,7 +15,8 @@ class MarkdownConverter
         let tempFile = "temp.txt"
         
         let data = content.dataUsingEncoding(NSUTF8StringEncoding)
-        guard NSFileManager.defaultManager().createFileAtPath(tempFile, contents: data, attributes: nil) else {
+        guard NSFileManager.defaultManager().createFileAtPath(tempFile, contents: data, attributes: nil) else
+        {
             print("Error creating temporary file")
             return nil
         }

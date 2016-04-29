@@ -13,7 +13,8 @@ class FileManagerWrapper
     class func discoverContentsInDirectoryWithURL(url: NSURL) -> [NSURL]
     {
         let fileManager = NSFileManager.defaultManager()
-        do {
+        do
+        {
             return try fileManager.contentsOfDirectoryAtURL(url,
                                                             includingPropertiesForKeys: [NSURLNameKey],
                                                             options: .SkipsHiddenFiles)
