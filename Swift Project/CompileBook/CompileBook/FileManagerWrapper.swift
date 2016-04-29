@@ -25,6 +25,22 @@ class FileManagerWrapper
         }
     }
     
+    class func retrieveContentFromFileWithURL(fileURL: NSURL) -> String?
+    {
+        do
+        {
+            let fileHandle = try NSFileHandle(forReadingFromURL: fileURL)
+            let data = fileHandle.readDataToEndOfFile()
+            
+            return NSString(data: data, encoding: NSUTF8StringEncoding)! as String
+        }
+        catch let error as NSError
+        {
+            print("Error reading from file. \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
     class func concatenateContentsOfFilesWithURLs(
         fileURLs: [NSURL],
         adjustFileContentsBeforeConcatenating: ((fileURL: NSURL, content: String) -> String)? = nil
@@ -33,20 +49,13 @@ class FileManagerWrapper
         return fileURLs.reduce("")
         {
             (allContent: String, fileURL) in
-            var contentsOfFile = ""
-            do
+            
+            guard let rawFileContent = retrieveContentFromFileWithURL(fileURL) else
             {
-                let fileHandle = try NSFileHandle(forReadingFromURL: fileURL)
-                let data = fileHandle.readDataToEndOfFile()
-                
-                let rawFileContent = NSString(data: data, encoding: NSUTF8StringEncoding)! as String
-                
-                contentsOfFile = adjustFileContentsBeforeConcatenating?(fileURL: fileURL, content: rawFileContent) ?? rawFileContent
+                return allContent
             }
-            catch let error as NSError
-            {
-                print("Error loading file. \(error.localizedDescription)")
-            }
+            
+            let contentsOfFile = adjustFileContentsBeforeConcatenating?(fileURL: fileURL, content: rawFileContent) ?? rawFileContent
             
             return allContent + contentsOfFile
         }
