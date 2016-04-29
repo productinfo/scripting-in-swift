@@ -37,4 +37,10 @@ class MarkdownConverter
         
         return NSString(data: convertedMarkdownData, encoding: NSUTF8StringEncoding) as? String
     }
+    
+    class func createHTMLStringFromMarkdownContent_swift(content: String) -> String
+    {
+        var markdown = Markdown()
+        return markdown.transform(content)
+    }
 }
