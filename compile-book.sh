@@ -4,7 +4,7 @@
 extract_chapter_title()
 {
 	chapter_filename=$(basename "$1")
-	echo "#${chapter_filename%.*}"
+	echo "# ${chapter_filename%.*}"
 }
 
 output_file=output/shellscript.html
