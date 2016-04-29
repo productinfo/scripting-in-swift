@@ -20,7 +20,7 @@ func createHTMLContentFromMarkdownFiles() -> String
         fileURL, contents in
         let path = fileURL.lastPathComponent!
 
-        let titleWithMarkdown = "#" + path.stringByReplacingOccurrencesOfString(".txt", withString: "")
+        let titleWithMarkdown = "# " + path.stringByReplacingOccurrencesOfString(".txt", withString: "")
         return titleWithMarkdown + "\n" + contents + "\n"
     }
     
@@ -28,9 +28,6 @@ func createHTMLContentFromMarkdownFiles() -> String
 }
 
 let markdownContent = createHTMLContentFromMarkdownFiles()
-guard let htmlContent = MarkdownConverter.createHTMLStringFromMarkdownContent_python(markdownContent) else
-{
-    print("Error generating html string from markdown content")
-    exit(1)
-}
+let htmlContent = MarkdownConverter.createHTMLStringFromMarkdownContent_swift(markdownContent)
+
 FileManagerWrapper.createFileAtPath("./output", withFileName: "swift.html", contents: htmlContent)
