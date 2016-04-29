@@ -14,7 +14,11 @@ func createHTMLContentFromMarkdownFiles() -> String
     
     let url = NSURL(fileURLWithPath: markdownFilesDirectory, isDirectory: true)
     
-    let markdownFileURLs = FileManagerWrapper.discoverContentsInDirectoryWithURL(url)
+    guard let markdownFileURLs = FileManagerWrapper.discoverContentsInDirectoryWithURL(url) else
+    {
+        exit(1)
+    }
+    
     let markdownContent = FileManagerWrapper.concatenateContentsOfFilesWithURLs(markdownFileURLs)
     {
         fileURL, contents in

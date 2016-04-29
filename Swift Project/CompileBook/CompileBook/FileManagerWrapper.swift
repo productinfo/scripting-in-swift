@@ -10,7 +10,7 @@ import Foundation
 
 class FileManagerWrapper
 {
-    class func discoverContentsInDirectoryWithURL(url: NSURL) -> [NSURL]
+    class func discoverContentsInDirectoryWithURL(url: NSURL) -> [NSURL]?
     {
         let fileManager = NSFileManager.defaultManager()
         do
@@ -21,7 +21,8 @@ class FileManagerWrapper
         }
         catch let error as NSError
         {
-            fatalError(error.localizedDescription)
+            print("Error reading contents of directory. \(error.localizedDescription)")
+            return nil
         }
     }
     
