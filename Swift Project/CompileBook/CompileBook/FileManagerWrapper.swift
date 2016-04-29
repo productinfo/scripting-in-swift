@@ -16,7 +16,7 @@ class FileManagerWrapper
         do {
             return try fileManager.contentsOfDirectoryAtURL(url,
                                                             includingPropertiesForKeys: [NSURLNameKey],
-                                                            options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+                                                            options: .SkipsHiddenFiles)
         }
         catch let error as NSError
         {
