@@ -8,7 +8,7 @@
 
 import Foundation
 
-func createHTMLPageFromMarkdownFiles()
+func createHTMLContentFromMarkdownFiles() -> String
 {
     let markdownFilesDirectoryName = "chapters"
     
@@ -16,9 +16,19 @@ func createHTMLPageFromMarkdownFiles()
     let url = NSURL(fileURLWithPath: "\(currentDirectory)/\(markdownFilesDirectoryName)", isDirectory: true)
     
     let markdownFileURLs = FileManagerWrapper.discoverContentsInDirectoryWithURL(url)
-    let markdownContent = FileManagerWrapper.concatenateContentsOfFilesWithURLs(markdownFileURLs)
+    let markdownContent = FileManagerWrapper.concatenateContentsOfFilesWithURLs(markdownFileURLs) {
+        fileURL, contents in
+        let path = fileURL.lastPathComponent!
+
+        let titleWithMarkdown = "#" + path.stringByReplacingOccurrencesOfString(".txt", withString: "")
+        return titleWithMarkdown + "\n" + contents + "\n"
+    }
     
-    MarkdownConverter.createHTMLStringFromMarkdownContent(markdownContent)
+    return markdownContent
 }
 
-createHTMLPageFromMarkdownFiles()
+let markdownContent = createHTMLContentFromMarkdownFiles()
+guard let htmlContent = MarkdownConverter.createHTMLStringFromMarkdownContent(markdownContent) else {
+    print("Error generating html string from markdown content")
+    exit(1)
+}

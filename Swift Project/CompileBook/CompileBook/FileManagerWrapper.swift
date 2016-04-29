@@ -24,32 +24,30 @@ class FileManagerWrapper
         }
     }
     
-    class func addFileTitleToContents(contents: String, fileName: String) -> String
-    {
-        let titleWithMarkdown = "#" + fileName.stringByReplacingOccurrencesOfString(".txt", withString: "")
-        return titleWithMarkdown.stringByAppendingString("\n" + contents + "\n")
-    }
-    
-    class func concatenateContentsOfFilesWithURLs(fileURLs: [NSURL]) -> String
+    class func concatenateContentsOfFilesWithURLs(
+        fileURLs: [NSURL],
+        adjustFileContentsBeforeConcatenating: ((fileURL: NSURL, content: String) -> String)? = nil
+        ) -> String
     {
         return fileURLs.reduce("")
         {
             (allContent: String, fileURL) in
-            var contentsWithTitle = ""
+            var contentsOfFile = ""
             do
             {
                 let fileHandle = try NSFileHandle(forReadingFromURL: fileURL)
                 let data = fileHandle.readDataToEndOfFile()
                 
-                let contents = NSString(data: data, encoding: NSUTF8StringEncoding)! as String
-                contentsWithTitle = addFileTitleToContents(contents, fileName: fileURL.lastPathComponent!)
+                let rawFileContent = NSString(data: data, encoding: NSUTF8StringEncoding)! as String
+                
+                contentsOfFile = adjustFileContentsBeforeConcatenating?(fileURL: fileURL, content: rawFileContent) ?? rawFileContent
             }
             catch let error as NSError
             {
                 print("Error loading file. \(error.localizedDescription)")
             }
             
-            return allContent + contentsWithTitle
+            return allContent + contentsOfFile
         }
     }
 
