@@ -51,4 +51,11 @@ class FileManagerWrapper
         }
     }
 
+    class func createFileAtPath(path: String, withFileName fileName: String, contents: String)
+    {
+        let outputPath = path + "/" + fileName
+        NSFileManager.defaultManager().createFileAtPath(outputPath,
+                                                        contents: contents.dataUsingEncoding(NSUTF8StringEncoding),
+                                                        attributes: nil)
+    }
 }

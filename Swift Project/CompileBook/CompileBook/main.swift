@@ -32,3 +32,4 @@ guard let htmlContent = MarkdownConverter.createHTMLStringFromMarkdownContent(ma
     print("Error generating html string from markdown content")
     exit(1)
 }
+FileManagerWrapper.createFileAtPath("./output", withFileName: "swift.html", contents: htmlContent)
