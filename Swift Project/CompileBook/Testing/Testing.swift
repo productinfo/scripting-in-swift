@@ -20,13 +20,13 @@ class Testing: XCTestCase {
         super.tearDown()
     }
     
-    func test_markdown_is_converted_into_html()
+    func test_markdown_is_converted_into_html_using_python_library()
     {
-        let markdown = "#This is a title"
+        let markdown = "# This is a title"
         
         let expectedHTML = "<h1>This is a title</h1>"
         
-        let convertedHTML = MarkdownConverter.createHTMLStringFromMarkdownContent(markdown)
+        let convertedHTML = MarkdownConverter.createHTMLStringFromMarkdownContent_python(markdown)
         
         XCTAssertEqual(expectedHTML, convertedHTML)
     }

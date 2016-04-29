@@ -10,7 +10,7 @@ import Foundation
 
 class MarkdownConverter
 {
-    class func createHTMLStringFromMarkdownContent(content: String) -> String?
+    class func createHTMLStringFromMarkdownContent_python(content: String) -> String?
     {
         let tempFile = "temp.txt"
         

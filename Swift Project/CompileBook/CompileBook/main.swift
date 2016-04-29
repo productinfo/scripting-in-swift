@@ -28,7 +28,7 @@ func createHTMLContentFromMarkdownFiles() -> String
 }
 
 let markdownContent = createHTMLContentFromMarkdownFiles()
-guard let htmlContent = MarkdownConverter.createHTMLStringFromMarkdownContent(markdownContent) else
+guard let htmlContent = MarkdownConverter.createHTMLStringFromMarkdownContent_python(markdownContent) else
 {
     print("Error generating html string from markdown content")
     exit(1)
