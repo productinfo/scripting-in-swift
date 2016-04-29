@@ -28,7 +28,7 @@ func createHTMLContentFromMarkdownFiles() -> String
         fileURL, contents in
         let path = fileURL.lastPathComponent!
 
-        let titleWithMarkdown = "# " + path.stringByReplacingOccurrencesOfString(".txt", withString: "")
+        let titleWithMarkdown = "# " + path.stringByReplacingOccurrencesOfString(".md", withString: "")
         return titleWithMarkdown + "\n" + contents + "\n"
     }
     
