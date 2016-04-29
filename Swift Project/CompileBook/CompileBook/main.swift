@@ -8,6 +8,11 @@
 
 import Foundation
 
+/**
+ Searches through the markdown files located within the 'chapters' folder and converts them into a single HTML file.
+ 
+ - returns: An HTML representation of the markdown files, concatenated into a single HTML file.
+ */
 func createHTMLContentFromMarkdownFiles() -> String
 {
     let markdownFilesDirectory = "./chapters"

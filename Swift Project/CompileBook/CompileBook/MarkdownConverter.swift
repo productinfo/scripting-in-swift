@@ -10,6 +10,13 @@ import Foundation
 
 class MarkdownConverter
 {
+    /**
+      Launches an NSTask that calls out to the markdown python library to convert markdown into an HTML string.
+     
+     - parameter content: The content string formatted with markdown
+     
+     - returns: An HTML string
+     */
     class func createHTMLStringFromMarkdownContent_python(content: String) -> String?
     {
         let tempFile = "temp.txt"
@@ -38,6 +45,13 @@ class MarkdownConverter
         return NSString(data: convertedMarkdownData, encoding: NSUTF8StringEncoding) as? String
     }
     
+    /**
+     Uses a native Swift library to transform a markdown string into HTML.
+     
+     - parameter content: The content string formatter with markdown
+     
+     - returns: An HTML string
+     */
     class func createHTMLStringFromMarkdownContent_swift(content: String) -> String
     {
         var markdown = Markdown()
