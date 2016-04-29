@@ -25,7 +25,7 @@ class FileManagerWrapper
         }
     }
     
-    class func retrieveContentFromFileWithURL(fileURL: NSURL) -> String?
+    class func readContentFromFileWithURL(fileURL: NSURL) -> String?
     {
         do
         {
@@ -50,7 +50,7 @@ class FileManagerWrapper
         {
             (allContent: String, fileURL) in
             
-            guard let rawFileContent = retrieveContentFromFileWithURL(fileURL) else
+            guard let rawFileContent = readContentFromFileWithURL(fileURL) else
             {
                 return allContent
             }
