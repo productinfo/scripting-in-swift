@@ -10,10 +10,9 @@ import Foundation
 
 func createHTMLContentFromMarkdownFiles() -> String
 {
-    let markdownFilesDirectoryName = "chapters"
+    let markdownFilesDirectory = "./chapters"
     
-    let currentDirectory = NSFileManager.defaultManager().currentDirectoryPath
-    let url = NSURL(fileURLWithPath: "\(currentDirectory)/\(markdownFilesDirectoryName)", isDirectory: true)
+    let url = NSURL(fileURLWithPath: markdownFilesDirectory, isDirectory: true)
     
     let markdownFileURLs = FileManagerWrapper.discoverContentsInDirectoryWithURL(url)
     let markdownContent = FileManagerWrapper.concatenateContentsOfFilesWithURLs(markdownFileURLs)
