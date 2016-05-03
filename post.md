@@ -42,19 +42,19 @@ A brief overview of the script:
 - Pipe the contents of the concatenated files into a python markdown library (install this using `pip install markdown`).
 - Print a message to the console
 
-The script is run by simply typing `./compile-book.sh`. The output HTML can be inspected by opening `output/shellscript.html` in a browser.
+The script is run by simply typing `./compile-book.sh`. The outputted HTML can be inspected by opening `output/shellscript.html` in a browser.
 
 ## The Swift Script
 
 ### Setting up
 
-I used Xcode's OSX's 'Command Line Tool' template to set up the project. Doing it this way means we can make use of Xcode's syntax highlighting and auto-complete features.
+I used Xcode's OSX 'Command Line Tool' template to set up the project. Doing it this way means we can make use of Xcode's syntax highlighting and auto-completion features.
 
 ### FileManagerWrapper.swift
 
-This acts as a simple wrapper around Foundation classes that interact with the file system. There's not too much of interest here: the class simply handles any errors returned by `NSFileManager` and `NSFileHandle` and prints relevant messages to the console. We make use of Swift Optionals in the case where a file cannot be read, a file cannot be found e.t.c.
+This acts as a simple wrapper around Foundation classes that interact with the file system. There's not too much of interest here: the class simply handles any errors returned by `NSFileManager` and prints relevant messages to the console. We make use of Swift Optionals in the case where a file cannot be read or cannot be found.
 
-It's hard to argue that this class is much of an improvement over the Shell Script; interacting with files is where it really shines, for example, the equivalent of `cat file1.txt` is a lot less concise in Swift.
+It's hard to argue that this class is much of an improvement over the Shell Script; interacting with files is where it really shines, for example, the equivalent of `cat file1.txt` is less concise in Swift.
 
 However, using Swift does enable us to gain access to a couple of nifty features, such as `SequenceType`'s `reduce` method.  We can also make use of an optional closure to give the caller a way of adjusting the contents of a file before concatenating the contents with those of the previous files.
 
