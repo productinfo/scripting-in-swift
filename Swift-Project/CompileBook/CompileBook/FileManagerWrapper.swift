@@ -44,10 +44,7 @@ class FileManagerWrapper
     {
         do
         {
-            let fileHandle = try NSFileHandle(forReadingFromURL: fileURL)
-            let data = fileHandle.readDataToEndOfFile()
-            
-            return NSString(data: data, encoding: NSUTF8StringEncoding)! as String
+            return try String(contentsOfURL: fileURL)
         }
         catch let error as NSError
         {
