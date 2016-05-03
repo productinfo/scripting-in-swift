@@ -2,15 +2,13 @@
 
 ## Introduction
 
-There has been a lot of talk about how Swift could be used to develop in many areas outside of iOS app development. Indeed there is (very early!) development to add Android support and IBM are looking to move a lot of their server development to using Swift. Another area where Swift could potentially be of use is as a Scripting language.
-
-Its concise nature makes it feel a little like Python and Ruby, yet its powerful type system means we can potentially write less error-prone scripts.
+There has been a lot of talk about how Swift could be used to develop in many areas outside of iOS app development. Indeed there is (very early!) progress being made to [add Android support](https://github.com/apple/swift/blob/master/docs/Android.md) and IBM are looking to use [Swift on the server](https://developer.ibm.com/swift/). Another area where Swift could potentially be of use is as a Scripting language. Its concise nature makes it feel a little like Python and Ruby, yet its powerful type system means we can potentially write less error-prone scripts.
 
 To test out Swift's scripting ability, we'll write a program that reads a number of separate markdown files, concatenates them into a single file, and then converts the concatenated file into HTML.
 
-A shellscript is perhaps the most common scripting language that is often turned to when a quick script is required. To test the viability of scripting in Swift, we'll write our markdown converter first as a shellscript and then compose a Swift version. We'll then do a quick comparison of the pros and cons of each script.
+A Shell Script is perhaps the most popular command-line scripting language, particularly in the mobile development world. To test the viability of scripting in Swift, we'll write our markdown converter first as a Shell Script and then compose a Swift version. We'll then do a quick comparison of the pros and cons of each script.
 
-## The Shellscript
+## The Shell Script
 
 ```sh
 #!/bin/sh
@@ -37,26 +35,28 @@ echo "Markdown conversion complete. Output located in $output_file"
 
 A brief overview of the script:
 
-- We go through all files within the *chapters* folder
+- We go through all files within the "chapters" directory
 	- Extract the file name, appending a '#' to add a title to the file contents
 	- Add various newlines to pad out the content
 	- Output the contents of the file
 - Pipe the contents of the concatenated files into a python markdown library (install this using `pip install markdown`).
 - Print a message to the console
 
+The script is run by simply typing `./compile-book.sh`. The output HTML can be inspected by opening `output/shellscript.html` in a browser.
+
 ## The Swift Script
 
 ### Setting up
 
-I used Xcode's OSX's 'Command Line Tool' template to set up the project. Doing it this way, meant I could use syntax highlighting and auto-complete.
+I used Xcode's OSX's 'Command Line Tool' template to set up the project. Doing it this way means we can make use of Xcode's syntax highlighting and auto-complete features.
 
 ### FileManagerWrapper.swift
 
-This acts as a simple wrapper around Foundation classes that interact with the file system. There's not too much of interest here: the class simply handles any errors returned by NSFileManager and NSFileHandle, prints relevant messages to the console. We make use of Swift's optionals so we can protect against the case where a file cannot be read, a file cannot be found e.t.c.
+This acts as a simple wrapper around Foundation classes that interact with the file system. There's not too much of interest here: the class simply handles any errors returned by `NSFileManager` and `NSFileHandle` and prints relevant messages to the console. We make use of Swift Optionals in the case where a file cannot be read, a file cannot be found e.t.c.
 
-It's pretty impossible to argue that the above class is much of an improvement over the shellscript; interacting with files is where shellscripting really shines, for example, the equivalent of `cat file1.txt` is a lot less concise in Swift.
+It's hard to argue that this class is much of an improvement over the Shell Script; interacting with files is where it really shines, for example, the equivalent of `cat file1.txt` is a lot less concise in Swift.
 
-However, using Swift does enable us to gain access to a couple of nifty features, such as collection's `reduce`.  We can also make use of an optional closure to give the caller a way of adjusting the contents of a file before concatenating the contents with those of the previous files.
+However, using Swift does enable us to gain access to a couple of nifty features, such as `SequenceType`'s `reduce` method.  We can also make use of an optional closure to give the caller a way of adjusting the contents of a file before concatenating the contents with those of the previous files.
 
 ```swift
 class func concatenateContentsOfFilesWithURLs(
@@ -81,7 +81,7 @@ class func concatenateContentsOfFilesWithURLs(
 
 ### MarkdownConverter.swift
 
-Fortunately, there are number of Markdown to HTML converting libraries written for iOS which are at our disposal. However, I was interested in seeing how we would call out to the Python library used in the Shellscript.
+Fortunately, there are number of Markdown to HTML converting libraries written for iOS which are at our disposal. However, I was interested in seeing how we would call out to the same Python library used in the Shell Script.
 
 ```swift
 class func createHTMLStringFromMarkdownContent_python(content: String) -> String?
@@ -113,11 +113,11 @@ class func createHTMLStringFromMarkdownContent_python(content: String) -> String
 }
 ```
 
-Urgh. Well... what were we expecting? 
+Urgh. Well... what were we expecting, I suppose?! 
 
 This method creates a temporary file to store the contents of our concatenated Markdown string which is then passed to the Python library. To capture the HTML string we use an NSPipe that we can read from later.
 
-Right, enough of that nonsense, let's use a native Swift library! I chose [Markingbird](https://github.com/kristopherjohnson/Markingbird), mostly for its simplicity - simply drag `Markdown.swift` into the project and you're good to go.
+Right, enough of that nonsense, let's use a native Swift library! I chose [Markingbird](https://github.com/kristopherjohnson/Markingbird), mostly for its simplicity - just drag `Markdown.swift` into the project and you're good to go.
 
 ```swift
 class func createHTMLStringFromMarkdownContent_swift(content: String) -> String
@@ -129,7 +129,7 @@ class func createHTMLStringFromMarkdownContent_swift(content: String) -> String
 
 ### main.swift
 
-This is the entry point to the script. This will call out to the other classes.
+This is the entry point to the script and links the other classes together.
 
 ```swift
 func createHTMLContentFromMarkdownFiles() -> String
@@ -158,7 +158,7 @@ func createHTMLContentFromMarkdownFiles() -> String
 }
 ```
 
-The above method simply asks the `FileManagerWrapper` for the contents of the "chapters" directory. If successful, we concatenate each file's contents into a single string, prepending the filename, minus the file extensions.
+The above method simply asks the `FileManagerWrapper` for the contents of the "chapters" directory. If successful in finding the directory, we concatenate each file's contents into a single string and prepend the filename, minus the file extension.
 
 To tie it all together, we pass the Markdown string to our converter and then write the converted HTML string to our output file.
 
@@ -173,39 +173,36 @@ print("Markdown conversion complete. Output located at output/swift.html")
 
 ### Building
 
-If we build and run the script in Xcode, we can copy the .exe from the Derived Data directory into the same directory as our chapters folder resides. We need to do this as, for simplicity, our path to the chapters directory is currently hardcoded within the script itself. Alternatively, we can add a stage to our executable target's *Build Phases* that copies the executable into the location we desire.
+If we build and run the script in Xcode, we can copy the executable from the Derived Data directory into the same directory as our chapters folder. We need to do this as, for simplicity, our path to the chapters directory is currently hardcoded within the script itself. Alternatively, we can add a stage to our executable target's *Build Phases* that copies the executable into the location we desire whenever we hit the 'Run' button.
 
 ```shell
 cp "${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}" "${SRCROOT}/../.."
 ```
-However, did you spot the size of the executable? It's coming out at a whopping 5MB! This seems a little extraordinary, especially when we compare to the tiny 467 bytes that our Shell Script requires.
 
-We can simply compile the files ourselves:
+Now we can run the script by typing `./CompileBook` in Terminal and then inspect the contents located at `output/swift.html`. 
+
+Great, that's working. However, did you spot the size of the executable? It's coming out at a whopping 5MB! This seems a little extraordinary, especially considering our Shell Script consumed a tiny 467 Bytes.
+
+We can bypass Xcode's compilation and simply compile the files ourselves:
 
 ```shell
-# From the directory containing our 'chapters', compile all swift files 
+# From the directory containing our 'chapters', compile all swift files
 swiftc $(echo "Swift-Project"/CompileBook/CompileBook/*.swift) -o CompileBook
 ```
 
-The executable generated using the above command is now a much more reasonable 400KB.
-
-To run the Swift script, all we have to do now is `./CompileBook`. We can now examine the output located within `output/swift.html`.
+The executable generated using the above command is now a much more reasonable 400KB. We can verify the output is the same by running `./CompileBook` again.
 
 ## Thoughts
 
 So, what can we learn from the above experiment?
 
-- The Swift script took longer to write, but is arguably easier to understand, due to better separation into separate classes, methods e.t.c
-- Aside from wrapping NSFileManager (which is over 50% of the script - ignoring the 3rd party Markdown parsing) there isn't much to the script.
-- We can use the familiar environment of Xcode with its excellent code-completion and syntax-highlighting.
-- We can write unit tests using XCTest. It's trivial to add a testing target and can use XCTest as you would in any iOS/Mac project..
-- We can make use of powerful Swift features: Standard Library, Error Handling, Closures
+There are a lot of advantages to being able to use the same tools and languages across multiple disciplines (in this case, mobile development and scripting). I rarely write Shell Scripts, so whenever I do, a lot of time is spent trawling sites like Stack Overflow for answers to relatively basic questions. Swift, on the other hand, is a much more familiar language to me which I develop with regularly, so I can dive in and get started a more easily. As for the tooling, Xcode provides good support for unit testing (and is getting better with almost every release), so we can make use of XCTest to help automate the testing of our script.
 
-For basic scripts that simply shift files around, a quick Shell Script is almost certainly the way to go. However if you are planning on writing a more complicated command line application, Swift may be the way to go.
+The Shell Script is a lot more concise (15 lines, opposed to around 150), however it does this at the cost of readability - I personally feel it's much easier to understand what the Swift script is doing. Powerful Swift features such as its standard library, error handling model and closures help us to write readable scripts that are less error prone by forcing us to take into account situations such as when a file is not found or the contents of the file cannot be read.
 
-## Further Investigation
+For basic scripts that simply shift files around, a Shell Script is almost certainly the way to go. However if you are planning on writing a more complicated command line application, Swift may be worth your consideration.
 
-A collection of links to videos, blog posts and libraries should you wish to investigate a little more:
+If you would like to find out a little bit more about scripting in Swift, the following resources may be of interest:
 
 - [Swift for CLI](https://realm.io/news/swift-for-CLI/)
 - [Swift Scripting By Example: Generating Acknowledgements For CocoaPods & Carthage Dependencies](http://swift.ayaka.me/posts/2015/11/5/swift-scripting-generating-acknowledgements-for-cocoapods-and-carthage-dependencies)
