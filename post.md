@@ -38,10 +38,10 @@ echo "Markdown conversion complete. Output located in $output_file"
 A brief overview of the script:
 
 - We go through all files within the *chapters* folder
--- Extract the file name, appending a '#' to add a title to the file contents
--- Add various newlines to pad out the content
--- Output the contents of the file
-- Pipe the contents of the concatenated files into a python markdown library. Install this using `pip install markdown`
+	- Extract the file name, appending a '#' to add a title to the file contents
+	- Add various newlines to pad out the content
+	- Output the contents of the file
+- Pipe the contents of the concatenated files into a python markdown library (install this using `pip install markdown`).
 - Print a message to the console
 
 ## The Swift Script
