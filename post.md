@@ -1,5 +1,3 @@
-# Scripting in Swift
-
 ## Introduction
 
 There has been a lot of talk about how Swift could be used to develop in many areas outside of iOS app development. Indeed there is (very early!) progress being made to [add Android support](https://github.com/apple/swift/blob/master/docs/Android.md) and IBM are looking to use [Swift on the server](https://developer.ibm.com/swift/). Another area where Swift could potentially be of use is as a Scripting language. Its concise nature makes it feel a little like Python and Ruby, yet its powerful type system means we can potentially write less error-prone scripts.
