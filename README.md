@@ -187,7 +187,7 @@ We can bypass Xcode's compilation and simply compile the files ourselves:
 
 ```shell
 # From the directory containing our 'chapters', compile all swift files
-swiftc $(echo "Swift-Project"/CompileBook/CompileBook/*.swift) -o CompileBook
+swiftc $(echo Swift-Project/CompileBook/CompileBook/*.swift) -o CompileBook
 ```
 
 The executable generated using the above command is now a much more reasonable 400KB. We can verify the output is the same by running `./CompileBook` again.
