@@ -4,11 +4,11 @@ There has been a lot of talk about how Swift could be used to develop in many ar
 
 To test out Swift's scripting ability, we'll write a program that reads a number of separate markdown files, concatenates them into a single file, and then converts the concatenated file into HTML.
 
-A Shell Script is perhaps the most popular command-line scripting language, particularly in the mobile development world. To test the viability of scripting in Swift, we'll write our markdown converter first as a Shell Script and then compose a Swift version. We'll then do a quick comparison of the pros and cons of each script.
+A shell script is perhaps the most popular command-line scripting language, particularly in the mobile development world. To test the viability of scripting in Swift, we'll write our markdown converter first as a shell script and then compose a Swift version. We'll then do a quick comparison of the pros and cons of each script.
 
 The code used in this blog post can be found on [GitHub](https://github.com/shinobicontrols/scripting-in-swift).
 
-## The Shell Script
+## The shell script
 
 ```sh
 #!/bin/sh
@@ -54,7 +54,7 @@ I used Xcode's OSX 'Command Line Tool' template to set up the project. Doing it 
 
 This acts as a simple wrapper around Foundation classes that interact with the file system. There's not too much of interest here: the class simply handles any errors returned by `NSFileManager` and prints relevant messages to the console. We make use of Swift Optionals in the case where a file cannot be read or cannot be found.
 
-It's hard to argue that this class is much of an improvement over the Shell Script; interacting with files is where it really shines, for example, the equivalent of `cat file1.txt` is less concise in Swift.
+It's hard to argue that this class is much of an improvement over the shell script; interacting with files is where it really shines, for example, the equivalent of `cat file1.txt` is less concise in Swift.
 
 However, using Swift does enable us to gain access to a couple of nifty features, such as `SequenceType`'s `reduce` method.  We can also make use of an optional closure to give the caller a way of adjusting the contents of a file before concatenating the contents with those of the previous files.
 
@@ -81,7 +81,7 @@ class func concatenateContentsOfFilesWithURLs(
 
 ### MarkdownConverter.swift
 
-Fortunately, there are number of Markdown to HTML converting libraries written for iOS which are at our disposal. However, I was interested in seeing how we would call out to the same Python library used in the Shell Script.
+Fortunately, there are number of Markdown to HTML converting libraries written for iOS which are at our disposal. However, I was interested in seeing how we would call out to the same Python library used in the shell script.
 
 ```swift
 class func createHTMLStringFromMarkdownContent_python(content: String) -> String?
@@ -181,7 +181,7 @@ cp "${CONFIGURATION_BUILD_DIR}/${PRODUCT_NAME}" "${SRCROOT}/../.."
 
 Now we can run the script by typing `./CompileBook` in Terminal and then inspect the contents located at `output/swift.html`. 
 
-Great, that's working. However, did you spot the size of the executable? It's coming out at a whopping 5MB! This seems a little extraordinary, especially considering our Shell Script consumed a tiny 467 Bytes.
+Great, that's working. However, did you spot the size of the executable? It's coming out at a whopping 5MB! This seems a little extraordinary, especially considering our shell script consumed a tiny 467 Bytes.
 
 We can bypass Xcode's compilation and simply compile the files ourselves:
 
@@ -196,11 +196,11 @@ The executable generated using the above command is now a much more reasonable 4
 
 So, what can we learn from the above experiment?
 
-There are a lot of advantages to being able to use the same tools and languages across multiple disciplines (in this case, mobile development and scripting). I rarely write Shell Scripts, so whenever I do, a lot of time is spent trawling sites like Stack Overflow for answers to relatively basic questions. Swift, on the other hand, is a much more familiar language to me which I develop with regularly, so I can dive in and get started a lot more easily. As for the tooling, Xcode provides good support for unit testing (and is getting better with almost every release), so we can make use of XCTest to help automate the testing of our script.
+There are a lot of advantages to being able to use the same tools and languages across multiple disciplines (in this case, mobile development and scripting). I rarely write shell scripts, so whenever I do, a lot of time is spent trawling sites like Stack Overflow for answers to relatively basic questions. Swift, on the other hand, is a much more familiar language to me which I develop with regularly, so I can dive in and get started a lot more easily. As for the tooling, Xcode provides good support for unit testing (and is getting better with almost every release), so we can make use of XCTest to help automate the testing of our script.
 
-The Shell Script is a lot more concise (15 lines, opposed to around 150), however it does this at the cost of readability - I personally feel it's much easier to understand what the Swift script is doing. Powerful Swift features such as its standard library, error handling model and closures help us to write readable scripts that are less error prone. This is because it forces us to take into account situations such as when a file is not found or the contents of the file cannot be read, edge cases I find myself often overlooking when writing Shell Scripts.
+The shell script is a lot more concise (15 lines, opposed to around 150), however it does this at the cost of readability - I personally feel it's much easier to understand what the Swift script is doing. Powerful Swift features such as its standard library, error handling model and closures help us to write readable scripts that are less error prone. This is because it forces us to take into account situations such as when a file is not found or the contents of the file cannot be read, edge cases I find myself often overlooking when writing shell scripts.
 
-For basic scripts that simply shift files around, a Shell Script is almost certainly the way to go. However if you are planning on writing a more complicated command line application, Swift may be worth your consideration.
+For basic scripts that simply shift files around, a shell script is almost certainly the way to go. However if you are planning on writing a more complicated command line application, Swift may be worth your consideration.
 
 If you would like to find out a little bit more about scripting in Swift, the following resources may be of interest:
 
