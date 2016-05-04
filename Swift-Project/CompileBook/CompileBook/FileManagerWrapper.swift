@@ -34,26 +34,6 @@ class FileManagerWrapper
     }
     
     /**
-     Reads content from the file at the given URL.
-     
-     - parameter fileURL: The URL of the file to read from.
-     
-     - returns: The contents of the file.
-     */
-    class func readContentFromFileWithURL(fileURL: NSURL) -> String?
-    {
-        do
-        {
-            return try String(contentsOfURL: fileURL)
-        }
-        catch let error as NSError
-        {
-            print("Error reading from file. \(error.localizedDescription)")
-            return nil
-        }
-    }
-    
-    /**
      Concatenates the content of all files at the given urls into a single string.
      
      - parameter fileURLs:                              The file urls to concatenate.
@@ -69,7 +49,7 @@ class FileManagerWrapper
         return fileURLs.reduce("")
         {
             (allContent: String, fileURL) in
-            guard let rawFileContent = readContentFromFileWithURL(fileURL) else
+            guard let rawFileContent = try? String(contentsOfURL: fileURL) else
             {
                 return allContent
             }

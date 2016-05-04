@@ -67,7 +67,7 @@ class func concatenateContentsOfFilesWithURLs(
     return fileURLs.reduce("")
     {
         (allContent: String, fileURL) in
-        guard let rawFileContent = readContentFromFileWithURL(fileURL) else
+        guard let rawFileContent = try? String(contentsOfURL: fileURL) else
         {
             return allContent
         }
@@ -76,7 +76,6 @@ class func concatenateContentsOfFilesWithURLs(
         
         return allContent + contentsOfFile
     }
-}
 ```
 
 ### MarkdownConverter.swift
