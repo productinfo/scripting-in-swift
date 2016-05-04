@@ -54,9 +54,9 @@ I used Xcode's OSX 'Command Line Tool' template to set up the project. Doing it 
 
 This acts as a simple wrapper around Foundation classes that interact with the file system. There's not too much of interest here: the class simply handles any errors returned by `NSFileManager` and prints relevant messages to the console. We make use of Swift Optionals in the case where a file cannot be read or cannot be found.
 
-It's hard to argue that this class is much of an improvement over the shell script; interacting with files is where it really shines, for example, the equivalent of `cat file1.txt` is less concise in Swift.
+This class, at first, doesn't seem to offer that many benefits over its more traditional counterpart, however the equivalent of `cat file1.txt` isn't that much more verbose in Swift (we need the URL which we then pass into the `String` intializer). In fact, you could argue the Swift variant is better, as it forces us to be aware of errors thrown in the case the file cannot be found at the given location, whereas the shell script does no such thing.
 
-However, using Swift does enable us to gain access to a couple of nifty features, such as `SequenceType`'s `reduce` method.  We can also make use of an optional closure to give the caller a way of adjusting the contents of a file before concatenating the contents with those of the previous files.
+Additionally, using Swift enables us to gain access to a couple of nifty features, such as `SequenceType`'s `reduce` method.  We can also make use of an optional closure to give the caller a way of adjusting the contents of a file before concatenating the contents with those of the previous files.
 
 ```swift
 class func concatenateContentsOfFilesWithURLs(
