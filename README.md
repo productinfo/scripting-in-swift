@@ -80,7 +80,7 @@ class func concatenateContentsOfFilesWithURLs(
 
 ### MarkdownConverter.swift
 
-Fortunately, there are number of Markdown to HTML converting libraries written for iOS which are at our disposal. However, I was interested in seeing how we would call out to the same Python library used in the shell script.
+I was interested in seeing how we would call out to the same Python library used in the shell script in the case a native library wasn't available for us to use.
 
 ```swift
 class func createHTMLStringFromMarkdownContent_python(content: String) -> String?
