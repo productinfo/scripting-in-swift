@@ -6,6 +6,8 @@ To test out Swift's scripting ability, we'll write a program that reads a number
 
 A Shell Script is perhaps the most popular command-line scripting language, particularly in the mobile development world. To test the viability of scripting in Swift, we'll write our markdown converter first as a Shell Script and then compose a Swift version. We'll then do a quick comparison of the pros and cons of each script.
 
+The code used in this blog post can be found on [GitHub](https://github.com/shinobicontrols/scripting-in-swift).
+
 ## The Shell Script
 
 ```sh
