@@ -192,6 +192,20 @@ swiftc $(echo Swift-Project/CompileBook/CompileBook/*.swift) -o CompileBook
 
 The executable generated using the above command is now a much more reasonable 400KB. We can verify the output is the same by running `./CompileBook` again.
 
+**Update - Running our code as a script**
+
+As pointed out by [Mic Pringle](https://twitter.com/micpringle/status/728227302912475137), I skipped directly to compiling our Swift project into an executable and forgot to actually run it as a script. The major difference between the two being an executable is pre-compiled, whereas a script is [compiled as it is run](https://twitter.com/jckarter/status/693205783836667904).
+
+To be able to do this, we need to pop all our Swift code into a single file. We can turn to our old friend `cat` to concatenate all our swift files into a single file (or, alternatively, you could write another Swift script that concatenates the contents of these files).
+
+```shell
+cat *.swift > CompileBook.swift
+```
+
+Now (again assuming we run it in the root of our project) we can run `swift CompileBook.swift` which will run our script. On a side note, if you're interested in finding out the difference between `swift` and `swiftc` then I found this [blog post](http://owensd.io/blog/swift-vs-swiftc/) helpful.
+
+Alternatively, we can add `/usr/bin/env xcrun swift` to the top of `CompileBook.swift` and then run `chmod +x CompileBook.swift`, making the file executable. This makes the script even simpler to run as now all we have to do is `./CompileBook.swift`. Examining the filesize shows its a modest 85KB, with the majority of this being the Markdown conversion library.
+
 ## Thoughts
 
 So, what can we learn from the above experiment?
