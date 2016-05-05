@@ -76,6 +76,7 @@ class func concatenateContentsOfFilesWithURLs(
         
         return allContent + contentsOfFile
     }
+}
 ```
 
 ### MarkdownConverter.swift
