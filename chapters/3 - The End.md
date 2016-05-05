@@ -1,2 +1,1 @@
-Our hero vanquishes all evil and lives *happily ever after*.
-
+Here ends our story and all live *happily ever after*.

@@ -1,2 +1,1 @@
-The shinobi way is the only way.
-
+This is the introduction. Interesting isn't it?

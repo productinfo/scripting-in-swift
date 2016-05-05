@@ -1,4 +1,4 @@
-Here begins our story:
+In the beginning there was:
 
-- One shinobi soldier
-- A quest to solve the riddle of the lost chart
+- Something
+- Something else
