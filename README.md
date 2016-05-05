@@ -80,7 +80,7 @@ class func concatenateContentsOfFilesWithURLs(
 
 ### MarkdownConverter.swift
 
-I was interested in seeing how we would call out to the same Python library used in the shell script in the case a native library wasn't available for us to use.
+I was interested to see how we would call out to the same Python library used in the shell script.
 
 ```swift
 class func createHTMLStringFromMarkdownContent_python(content: String) -> String?
@@ -199,7 +199,7 @@ There are a lot of advantages to being able to use the same tools and languages 
 
 The shell script is a lot more concise (15 lines, opposed to around 150), however it does this at the cost of readability - I personally feel it's much easier to understand what the Swift script is doing. Powerful Swift features such as its standard library, error handling model and closures help us to write readable scripts that are less error prone. This is because it forces us to take into account situations such as when a file is not found or the contents of the file cannot be read; edge cases I find myself often overlooking when writing shell scripts.
 
-For basic scripts that simply shift files around, a shell script is almost certainly the way to go. However if you are planning on writing a more complicated command line application, Swift may be worth your consideration.
+For basic scripts that simply shift files around a shell script is almost certainly the way to go. However, if you are planning on writing a more complicated command line application, Swift may be worth your consideration.
 
 If you would like to find out a little bit more about scripting in Swift, the following resources may be of interest:
 
